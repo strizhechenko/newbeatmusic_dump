@@ -2,7 +2,10 @@ import json, os, re, urllib
 
 # TODO use wall_post_count and dynamic offset eval
 
-wall_get_url = 'https://api.vk.com/method/wall.get?owner_id=-18312682'
+group_id = 18312682 # vk.com/newbeatmusic
+                    # you can copy it from avatar url
+
+wall_get_url = 'https://api.vk.com/method/wall.get?owner_id=-' + group_id
 
 
 def wall_get_post_count():
@@ -55,9 +58,9 @@ def main():
     offset = 0
     if not os.path.isfile('newbeat.json'):
         print "TODO: dynamic offset eval, but now:"
-        print "curl 'https://api.vk.com/method/wall.get?owner_id=-18312682&count=100&offset=0' > newbeat.json"
-        print "curl 'https://api.vk.com/method/wall.get?owner_id=-18312682&count=100&offset=100' > newbeat2.json"
-        print "curl 'https://api.vk.com/method/wall.get?owner_id=-18312682&count=100&offset=200' > newbeat3.json"
+        print "curl '" + wall_get_url + "&count=100&offset=0' > newbeat.json"
+        print "curl '" + wall_get_url + "&count=100&offset=100' > newbeat2.json"
+        print "curl '" + wall_get_url + "&count=100&offset=200' > newbeat3.json"
         return
     if not os.path.isdir('download'):
         os.mkdir('download')
