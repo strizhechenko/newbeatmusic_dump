@@ -1,3 +1,16 @@
-# newbeatmusic_dump
+Выкачивает все трэки со стены группы вконтакте в папку с её ID.
 
-http://vk.com/newbeatmusic track on a wall grabber
+Задать группу можно аргументом:
+
+    python download.py <group_id>
+
+либо переменной окружения ID:
+
+    export ID=<group_id>
+    python download.py
+
+По умолчанию выбран http://vk.com/newbeatmusic
+
+ID должен быть в виде цифры, узнать можно скопировав ссылку на аватар группы.
+
+Проверено на python 2.7
