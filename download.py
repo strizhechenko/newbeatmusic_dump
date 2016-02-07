@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 """
 Выкачивает все трэки со стены группы вконтакте в папку с её ID.
 
@@ -11,16 +11,18 @@
 
 ID должен быть в виде цифры, узнать можно скопировав ссылку на аватар группы.
 """
-import json
-import os
-import urllib
-import urllib2
-from urlparse import urlparse
-from sys import argv
-import HTMLParser
 
-HTML = HTMLParser.HTMLParser()
+import os
+import json
+from sys import argv
+from urllib import urlretrieve
+from urllib2 import urlopen
+from urlparse import urlparse
+from HTMLParser import HTMLParser
+
+HTML = HTMLParser()
 API_URL = 'https://api.vk.com/method'
+
 
 def get_group_id():
     """сперва проверяем аргументы, затем env, затем берём дефолтное"""
@@ -29,7 +31,7 @@ def get_group_id():
 
 def wall_post_count_get(url):
     """узнаём число постов на стене"""
-    return json.load(urllib2.urlopen(url + '&count=1')).get('response')[0]
+    return json.load(urlopen(url + '&count=1')).get('response')[0]
 
 
 def simplify(attach):
@@ -56,12 +58,12 @@ def download(track, group_id):
     if not track['url']:
         print '... no url, skip'
         return
-    urllib.urlretrieve(track['url'], filename)
+    urlretrieve(track['url'], filename)
 
 
 def download_all_response(url, group_id):
     """выкачиваем все аудио из полученного ответа"""
-    response = json.load(urllib2.urlopen(url)).get('response')
+    response = json.load(urlopen(url)).get('response')
     response.remove(response[0])
     posts = [post for post in response if post.get('attachments')]
     for post in posts:
