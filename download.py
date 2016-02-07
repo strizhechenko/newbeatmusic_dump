@@ -64,7 +64,6 @@ def download(track, group_id):
 def download_all_response(url, group_id):
     """выкачиваем все аудио из полученного ответа"""
     response = json.load(urlopen(url)).get('response')
-    response.remove(response[0])
     posts = [post for post in response if post.get('attachments')]
     for post in posts:
         attachments = [a for a in post['attachments'] if a['type'] == 'audio']
