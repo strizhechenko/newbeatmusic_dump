@@ -64,7 +64,7 @@ def download_all_response(url, group_id):
     response = json.load(urlopen(url)).get('response')[1:]
     posts = [post for post in response if post.get('attachments')]
     for post in posts:
-        is_audio = lambda at: at['type'] == 'audio' and at.get('url')
+        is_audio = lambda a: a['type'] == 'audio' and a.get('audio').get('url')
         attachments = filter(is_audio, post['attachments'])
         attachments = map(simplify, attachments)
         for attach in attachments:
