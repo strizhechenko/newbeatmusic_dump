@@ -59,7 +59,6 @@ def download(track, group_id):
         print '... no url, skip'
         return
     urlretrieve(track['url'], filename)
-    exit(1)
 
 
 def download_all_response(url, group_id):
