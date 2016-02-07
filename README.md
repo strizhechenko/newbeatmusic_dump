@@ -7,6 +7,7 @@
 либо переменной окружения ID:
 
     export ID=<group_id>
+    python download.py
 
 По умолчанию выбран http://vk.com/newbeatmusic
 
