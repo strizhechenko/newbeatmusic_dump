@@ -39,7 +39,7 @@ def simplify(attach):
     audio = attach.get('audio')
     url = audio.get('url')
     return {
-        'url': url.replace('?' + urlparse('url').query, ''),
+        'url': url.replace('?' + urlparse(url).query, ''),
         'title': HTML.unescape(audio['title']),
         'performer': HTML.unescape(audio['performer']),
     }
@@ -48,7 +48,7 @@ def simplify(attach):
 def download(track, group_id):
     """скачиваем и сохраняем трэк"""
     data = (track['performer'], track['title'])
-    print ("Download: %s - %s" % data).encode('utf-8')
+    print ("Download: %s - %s" % data).encode('utf-8'), track['url']
     # в два захода, чтобы не сделать download/x в downloadx
     filename = ("%s - %s.mp3" % data).replace("/", "")
     filename = "%s/%s" % (group_id, filename)
@@ -59,11 +59,12 @@ def download(track, group_id):
         print '... no url, skip'
         return
     urlretrieve(track['url'], filename)
+    exit(1)
 
 
 def download_all_response(url, group_id):
     """выкачиваем все аудио из полученного ответа"""
-    response = json.load(urlopen(url)).get('response')
+    response = json.load(urlopen(url)).get('response')[1:]
     posts = [post for post in response if post.get('attachments')]
     for post in posts:
         attachments = [a for a in post['attachments'] if a['type'] == 'audio']
